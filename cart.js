@@ -1,22 +1,20 @@
-const storageCard = localStorage.getItem("category");
-const storagePrice = localStorage.getItem("price");
+const storageData = localStorage.getItem("bought_products");
+if (storageData) {
+  const [storageCard, storagePrice] = JSON.parse(storageData);
 
-const product = document.createElement("div");
-// const productImg = document.createElement("img");
-const productName = document.createElement("p");
-const price = document.createElement("p");
+  const product = document.createElement("div");
+  const productName = document.createElement("p");
+  const price = document.createElement("p");
 
-product.classList.add("product");
-// productImg.classList.add("image");
-productName.classList.add("product-name");
-price.classList.add("price");
+  product.classList.add("product");
+  productName.classList.add("product-name");
+  price.classList.add("price");
 
-// productImg.src = element.images[0];
-productName.textContent = storageCard;
-price.textContent = storagePrice;
+  productName.textContent = storageCard;
+  price.textContent = storagePrice;
 
-// product.appendChild(productImg);
-product.appendChild(productName);
-product.appendChild(price);
+  product.appendChild(productName);
+  product.appendChild(price);
 
-document.querySelector("body").appendChild(product);
+  document.querySelector("body").appendChild(product);
+}
