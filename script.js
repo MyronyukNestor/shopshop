@@ -29,7 +29,7 @@ function createProduct(element, condition) {
 
       const prodInfo = [title, price, imgs];
 
-      localStorage.setItem("bought_products", JSON.stringify(prodInfo));
+      sessionStorage.setItem("bought_products", JSON.stringify(prodInfo));
 
       window.location.href = "http://127.0.0.1:5500/cart.html";
     });
