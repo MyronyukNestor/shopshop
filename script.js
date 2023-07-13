@@ -8,7 +8,7 @@ let price = 2000;
 const titles = document.querySelector(".titles");
 const mainDiv = document.querySelector(".main-div");
 
-// create product cardss
+// create product cards
 
 function createProduct(element, condition) {
   if (condition) {
