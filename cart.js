@@ -1,4 +1,4 @@
-const storageData = localStorage.getItem("bought_products");
+const storageData = sessionStorage.getItem("bought_products");
 if (storageData) {
   const [storageCard, storagePrice] = JSON.parse(storageData);
 
