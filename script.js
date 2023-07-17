@@ -1,37 +1,55 @@
 let APIurl = "https://dummyjson.com/products/";
 
 let arr;
+let cardArr = [];
 
+if (localStorage.getItem("bouth-products")) {
+  cardArr = JSON.parse(localStorage.getItem("bouth-products"));
+} else {
+  cardArr = [];
+}
+//let cardArr = JSON.parse(localStorage.getItem("bouth-products"));
 let category = "all";
 let price = 2000;
 
-const titles = document.querySelector(".titles");
+const container = document.querySelector(".container");
 const mainDiv = document.querySelector(".main-div");
+const shoppingCart = document.querySelector(".shopping-cart");
 
 // create product cards
-
 function createProduct(element, condition) {
   if (condition) {
     const product = document.createElement("div");
     product.setAttribute("data-category", element.category);
     const productImg = document.createElement("img");
+    const addToCartLink = document.createElement("a");
+    addToCartLink.href =
+      "./cart.html?title=" +
+      element.title +
+      "&price=" +
+      element.price +
+      "&image=" +
+      element.images[0];
     const addToCart = document.createElement("img");
-    addToCart.setAttribute("data-title", element.title);
-    addToCart.setAttribute("data-price", element.price);
-    addToCart.setAttribute("data-img", element.images);
+    addToCart.style.cursor = "pointer";
+    addToCart.setAttribute("data-basket-title", element.title);
+    addToCart.setAttribute("data-basket-price", element.price);
+    addToCart.setAttribute("data-basket-img", element.images);
     const productName = document.createElement("p");
     const price = document.createElement("p");
 
     addToCart.addEventListener("click", () => {
-      const title = addToCart.getAttribute("data-title");
-      const price = addToCart.getAttribute("data-price");
-      const imgs = addToCart.getAttribute("data-img");
+      const title = addToCart.getAttribute("data-basket-title");
+      const price = addToCart.getAttribute("data-basket-price");
+      const imgs = addToCart.getAttribute("data-basket-img");
 
       const prodInfo = [title, price, imgs];
+      cardArr.push(prodInfo);
+      console.log(cardArr);
+      // щоб записати масив у локал.пам -> JSON.stringify
+      //   localStorage.setItem("bouth-products", JSON.stringify(cardArr));
 
-      localStorage.setItem("bought_products", JSON.stringify(prodInfo));
-
-      window.location.href = "http://127.0.0.1:5500/cart.html";
+      // window.location.href = "file:///C:/Users/1/Documents/svitymo/shop1/cart.html";
     });
 
     product.classList.add("product");
@@ -41,18 +59,19 @@ function createProduct(element, condition) {
     price.classList.add("price");
 
     productImg.src = element.images[0];
-    addToCart.src = "./images/icon.png";
+    addToCart.src = "images/icon.png";
     productName.textContent = element.title;
     price.textContent = element.price;
 
     product.appendChild(productImg);
-    product.appendChild(addToCart);
+    addToCartLink.appendChild(addToCart);
+    product.appendChild(addToCartLink);
     product.appendChild(productName);
     product.appendChild(price);
 
     mainDiv.appendChild(product);
   }
-}
+} // end createProduct
 
 // display all products and category buttons after page load
 const arrCategory = [];
@@ -74,7 +93,7 @@ fetch(APIurl)
       const button = document.createElement("button");
       button.id = "button-" + i;
       button.innerText = categoryElement;
-      titles.appendChild(button);
+      container.appendChild(button);
       button.classList.add("category-btn");
 
       button.addEventListener("click", (event) => {
@@ -86,6 +105,7 @@ fetch(APIurl)
           const element = products[index];
           const children = element.children;
           const prodPrice = parseInt(children[3].textContent);
+
           if (category == "all") {
             if (prodPrice > parseInt(price)) {
               element.style.display = "none";
@@ -143,7 +163,7 @@ rangeInput.addEventListener("change", function () {
 
 const allCategories = document.createElement("button");
 allCategories.innerText = "all categories";
-titles.appendChild(allCategories);
+container.appendChild(allCategories);
 allCategories.classList.add("category-btn");
 allCategories.addEventListener("click", () => {
   category = "all";
@@ -162,4 +182,27 @@ allCategories.addEventListener("click", () => {
   }
 });
 
+// shopping cart
 
+if (cardArr.length > 0) {
+  const cartIcon = document.createElement("img");
+  cartIcon.classList.add("icon");
+  cartIcon.src = "images/2.png";
+  cartIcon.addEventListener("click", () => {
+    window.location.href = "http://127.0.0.1:5500/cart.html";
+  });
+  shoppingCart.appendChild(cartIcon);
+} else {
+  const cartIcon = document.createElement("img");
+  cartIcon.classList.add("icon");
+  cartIcon.src = "images/1.png";
+  cartIcon.addEventListener("mouseenter", () => {
+    cartIcon.title = "Корзина порожня!";
+  });
+  cartIcon.addEventListener("mouseleave", () => {
+    cartIcon.title = "";
+  });
+  shoppingCart.appendChild(cartIcon);
+}
+
+// localStorage.clear();

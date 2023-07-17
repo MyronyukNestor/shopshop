@@ -51,19 +51,25 @@ body {
   font-weight: 700;
 }
 
-.category-btn {
-  padding: 13px;
+.icon {
+  width: 50px;
+  cursor: pointer;
 }
 
-.categories {
-  width: 1000px;
+.header {
+  margin-right: 35px;
   margin-top: 20px;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  gap: 20px;
 }
 
-.titles {
+.category-btn {
+  padding: 10px;
+}
+
+.container {
   display: flex;
   gap: 10px;
 }
