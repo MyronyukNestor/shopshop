@@ -15,7 +15,6 @@ for (let param of searchParams.entries()) {
 }
 
 // Now you can access the parameters using the params object
-// console.log(params);
 
 const title = params.title;
 const price = params.price;
@@ -28,12 +27,15 @@ let parseCard = [];
 if (localStorage.getItem("bouth-products")) {
   let storageCard = localStorage.getItem("bouth-products");
   parseCard = JSON.parse(storageCard);
-  parseCard.push(newProduct);
-  console.log(parseCard);
-  localStorage.setItem("bouth-products", JSON.stringify(parseCard));
+  if (newProduct[0] !== undefined) {
+    parseCard.push(newProduct);
+    localStorage.setItem("bouth-products", JSON.stringify(parseCard));
+  }
 } else {
-  parseCard.push(newProduct);
-  localStorage.setItem("bouth-products", JSON.stringify(parseCard));
+  if (newProduct[0] !== undefined) {
+    parseCard.push(newProduct);
+    localStorage.setItem("bouth-products", JSON.stringify(parseCard));
+  }
 }
 
 for (let index = 0; index < parseCard.length; index++) {
@@ -43,24 +45,44 @@ for (let index = 0; index < parseCard.length; index++) {
   const productImg = document.createElement("img");
   const productName = document.createElement("p");
   const price = document.createElement("p");
+  const images = document.createElement("div");
 
   product.classList.add("product");
   productImg.classList.add("image");
+  images.classList.add("images");
   productName.classList.add("product-name");
   price.classList.add("price");
 
   let arrCardImg = element[2];
   let firstImg = arrCardImg.split(",");
-  console.log(firstImg);
 
-  //
+  for (let index = 0; index < firstImg.length; index++) {
+    const image = document.createElement("img");
+    image.src = firstImg[index];
+    images.appendChild(image);
+  }
+
   productImg.src = firstImg[0];
-  productName.textContent = element[0]; //
-  price.textContent = element[1]; //
+  productName.textContent = element[0];
+  price.textContent = element[1];
 
   product.appendChild(productImg);
+  product.appendChild(images);
   product.appendChild(productName);
   product.appendChild(price);
 
   yourCards.appendChild(product);
 }
+
+// slider
+
+const images = document.querySelectorAll(".images");
+
+const sliderImages = images[0].children;
+
+let index = 0;
+
+setInterval(() => {
+  sliderImages[index].style.display = "block";
+  index++;
+}, 2000);

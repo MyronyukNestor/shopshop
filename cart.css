@@ -1,0 +1,17 @@
+img {
+  width: 100%;
+}
+
+.images {
+  max-width: 100px;
+}
+
+.product {
+  min-width: 200px;
+}
+
+.images img {
+  display: none;
+}
+
+ 

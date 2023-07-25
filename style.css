@@ -8,6 +8,10 @@ body {
   font-family: "Nunito sans";
 }
 
+img {
+  max-width: 100%;
+}
+
 .wrapper {
   max-width: 1024px;
   margin: 0 auto;
@@ -73,3 +77,4 @@ body {
   display: flex;
   gap: 10px;
 }
+

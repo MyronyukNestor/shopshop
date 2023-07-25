@@ -45,7 +45,6 @@ function createProduct(element, condition) {
 
       const prodInfo = [title, price, imgs];
       cardArr.push(prodInfo);
-      console.log(cardArr);
       // щоб записати масив у локал.пам -> JSON.stringify
       //   localStorage.setItem("bouth-products", JSON.stringify(cardArr));
 
@@ -196,11 +195,8 @@ if (cardArr.length > 0) {
   const cartIcon = document.createElement("img");
   cartIcon.classList.add("icon");
   cartIcon.src = "images/1.png";
-  cartIcon.addEventListener("mouseenter", () => {
-    cartIcon.title = "Корзина порожня!";
-  });
-  cartIcon.addEventListener("mouseleave", () => {
-    cartIcon.title = "";
+  cartIcon.addEventListener("click", () => {
+    window.location.href = "http://127.0.0.1:5500/cart.html";
   });
   shoppingCart.appendChild(cartIcon);
 }
